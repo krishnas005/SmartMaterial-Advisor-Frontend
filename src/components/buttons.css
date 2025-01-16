@@ -1,0 +1,78 @@
+.alloy-button {
+  position: relative;
+  background: linear-gradient(
+   45deg,
+    #6a11cb 0%,
+    #2575fc 50%,
+    #6a11cb 70%
+  );
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  display: inline-block;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  background-clip: padding-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* .alloy-button::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ffcc00, #ff0066, #8a2be2, #ffcc00);
+  z-index: -1;
+  border-radius: 10px;
+  background-size: 200% 200%;
+  animation: shimmer 3s infinite;
+}
+
+.alloy-button::after {
+  content: "✨✨";
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  transform: translate(-40%, -50%);
+  font-size: 0.5rem;
+  color: rgba(239, 227, 6, 0.801);
+  animation: twinkling 3s infinite;
+  pointer-events: none;
+} */
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes twinkling {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}   
+.logo-img {
+  -webkit-mask-image: url('/logo.jpg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-image: url('/logo.jpg');
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  background-color: transparent;
+  width: 100%;
+  height: auto;
+}

@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
+    <!-- Background with subtle grid -->
+    <rect width="1000" height="800" fill="#f8f9fa"/>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+        <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e9ecef" stroke-width="0.5"/>
+    </pattern>
+    <rect width="1000" height="800" fill="url(#grid)"/>
+
+    <!-- Main Title -->
+    <g transform="translate(0, 40)">
+        <rect x="200" y="0" width="600" height="50" rx="25" fill="#2c3e50"/>
+        <text x="500" y="32" text-anchor="middle" font-size="24" fill="white" font-weight="bold">
+            Dynamic Material Extraction &amp; Analysis System
+        </text>
+    </g>
+
+    <!-- Data Sources Section -->
+    <g transform="translate(100, 150)">
+        <rect x="0" y="0" width="200" height="270" rx="10" fill="#3498db" opacity="0.9"/>
+        <text x="100" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Data Sources</text>
+        
+        <!-- Source Icons and Labels -->
+        <g transform="translate(20, 50)">
+            <!-- Patents -->
+            <rect x="0" y="0" width="160" height="40" rx="5" fill="#2980b9"/>
+            <text x="80" y="25" text-anchor="middle" fill="white" font-size="14">Scientific Patents</text>
+            
+            <!-- Literature -->
+            <rect x="0" y="50" width="160" height="40" rx="5" fill="#2980b9"/>
+            <text x="80" y="75" text-anchor="middle" fill="white" font-size="14">Research Literature</text>
+            
+            <!-- Databases -->
+            <rect x="0" y="100" width="160" height="40" rx="5" fill="#2980b9"/>
+            <text x="80" y="125" text-anchor="middle" fill="white" font-size="14">Material Databases</text>
+
+            <!-- Web Sources -->
+            <rect x="0" y="150" width="160" height="40" rx="5" fill="#2980b9"/>
+            <text x="80" y="170" text-anchor="middle" fill="white" font-size="12">Scientific Journals</text>
+            <text x="80" y="185" text-anchor="middle" fill="white" font-size="12">Research Institutes</text>
+        </g>
+    </g>
+
+    <!-- AI Processing Hub -->
+    <g transform="translate(400, 150)">
+        <rect x="0" y="0" width="250" height="270" rx="10" fill="#2ecc71" opacity="0.9"/>
+        <text x="125" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="bold">AI Processing Hub</text>
+        
+        <!-- Processing Components -->
+        <g transform="translate(25, 50)">
+            <!-- Web Scraping -->
+            <rect x="0" y="0" width="200" height="40" rx="5" fill="#27ae60"/>
+            <text x="100" y="25" text-anchor="middle" fill="white" font-size="14">Advanced Web Scraping</text>
+            
+            <!-- NLP -->
+            <rect x="0" y="50" width="200" height="40" rx="5" fill="#27ae60"/>
+            <text x="100" y="75" text-anchor="middle" fill="white" font-size="14">NLP Models (BERT)</text>
+            
+            <!-- ML Models -->
+            <rect x="0" y="100" width="200" height="40" rx="5" fill="#27ae60"/>
+            <text x="100" y="125" text-anchor="middle" fill="white" font-size="14">Machine Learning Models</text>
+
+            <!-- Data Verification -->
+            <rect x="0" y="150" width="200" height="40" rx="5" fill="#27ae60"/>
+            <text x="100" y="175" text-anchor="middle" fill="white" font-size="14">Source Verification</text>
+        </g>
+    </g>
+
+    <!-- Analysis Module -->
+    <g transform="translate(700, 150)">
+        <rect x="0" y="0" width="200" height="270" rx="10" fill="#e74c3c" opacity="0.9"/>
+        <text x="100" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Analysis Module</text>
+        
+        <!-- Analysis Components -->
+        <g transform="translate(20, 50)">
+            <!-- Properties -->
+            <rect x="0" y="0" width="160" height="40" rx="5" fill="#c0392b"/>
+            <text x="80" y="25" text-anchor="middle" fill="white" font-size="14">Property Extraction</text>
+            
+            <!-- Integration -->
+            <rect x="0" y="50" width="160" height="40" rx="5" fill="#c0392b"/>
+            <text x="80" y="75" text-anchor="middle" fill="white" font-size="14">Data Integration</text>
+            
+            <!-- Validation -->
+            <rect x="0" y="100" width="160" height="40" rx="5" fill="#c0392b"/>
+            <text x="80" y="125" text-anchor="middle" fill="white" font-size="14">Validation System</text>
+
+            <!-- Reliability Check -->
+            <rect x="0" y="150" width="160" height="40" rx="5" fill="#c0392b"/>
+            <text x="80" y="175" text-anchor="middle" fill="white" font-size="14">Reliability Analysis</text>
+        </g>
+    </g>
+
+    <!-- Dynamic Database -->
+    <g transform="translate(400, 500)">
+        <rect x="0" y="0" width="250" height="200" rx="10" fill="#9b59b6" opacity="0.9"/>
+        <text x="125" y="30" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Dynamic Database</text>
+        
+        <!-- Database Components -->
+        <g transform="translate(25, 50)">
+            <!-- Properties -->
+            <rect x="0" y="0" width="200" height="40" rx="5" fill="#8e44ad"/>
+            <text x="100" y="25" text-anchor="middle" fill="white" font-size="14">Material Properties</text>
+            
+            <!-- Applications -->
+            <rect x="0" y="50" width="200" height="40" rx="5" fill="#8e44ad"/>
+            <text x="100" y="75" text-anchor="middle" fill="white" font-size="14">Application Mapping</text>
+        </g>
+    </g>
+
+    <!-- Connecting Arrows -->
+    <path d="M300,285 L400,285" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M650,285 L700,285" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M800,420 L800,600 L650,600" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M400,600 L300,600 L300,375 L400,285" stroke="#34495e" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+    <!-- Arrow Marker Definition -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#34495e"/>
+        </marker>
+    </defs>
+
+    <!-- Bottom Feature Summary -->
+    <g transform="translate(0, 730)">
+        <rect x="100" y="0" width="800" height="60" rx="30" fill="#2c3e50"/>
+        <text x="500" y="25" text-anchor="middle" font-size="16" fill="white" font-weight="bold">
+            Key Features
+        </text>
+        <text x="500" y="45" text-anchor="middle" font-size="14" fill="white">
+            Automated Updates | Verified Sources | ML-Enhanced Insights | Continuous Learning
+        </text>
+    </g>
+</svg>
