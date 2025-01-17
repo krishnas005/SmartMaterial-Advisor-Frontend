@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from 'react';
-import Select from 'react-select';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import Select from "react-select";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -31,17 +31,17 @@ const AlloyGenerator = () => {
     heat_resistance: { min: 1, max: 100, unit: "%" },
     corrosion_resistance: { min: 1, max: 100, unit: "%" }
   };
-
+  
   const materialProperties = Object.keys(propertyConstraints).map((key) => ({
     value: key,
-    label: `${key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())} (${propertyConstraints[key].unit})`,
+    label: `${key.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())} (${propertyConstraints[key].unit})`,
   }));
 
   const handlePropertyChange = (selectedOptions) => {
     setSelectedProperties(selectedOptions || []);
     const newPropertyRanges = {};
     (selectedOptions || []).forEach(({ value }) => {
-      newPropertyRanges[value] = newPropertyRanges[value] || { min: '', max: '' };
+      newPropertyRanges[value] = newPropertyRanges[value] || { min: "", max: "" };
     });
     setPropertyRanges(newPropertyRanges);
   };
@@ -81,7 +81,7 @@ const AlloyGenerator = () => {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setResult(null);
 
@@ -91,35 +91,38 @@ const AlloyGenerator = () => {
 
     setLoading(true);
 
-    // Hardcoding the result for demonstration purposes
-    setTimeout(() => {
-      const hardcodedResult = {
-        alloy_name: "Fe65Cr18Ni8Mn2Si1",
-        composition: {
-          Iron: "65%",
-          Chromium: "18%",
-          Nickel: "8%",
-          Manganese: "2%",
-          Silicon: "1%",
+    try {
+      const inputText = selectedProperties
+        .map((prop) => {
+          const { min, max } = propertyRanges[prop.value];
+          return `${prop.label}: ${min}-${max} ${propertyConstraints[prop.value].unit}`;
+        })
+        .join(", ");
+
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        achieved_properties: {
-          tensile_strength: "520 MPa",
-          hardness: "170 HV",
-          density: "3125 kg/m³",
-          corrosion_resistance: "80%",
-        },
-        similarity_score: 78,
-        explanations: {
-          Iron: "Contributes to tensile strength and malleability.",
-          Chromium: "Enhances corrosion resistance and hardness.",
-          Nickel: "Improves ductility and toughness.",
-          Manganese: "Increases strength and wear resistance.",
-          Silicon: "Adds to hardness and improves heat resistance.",
-        },
-      };
-      setResult(hardcodedResult);
+        body: JSON.stringify({ input_text: inputText }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.error) {
+        toast.error(`⚠️ ${data.error}`);
+      } else {
+        setResult(data.response);
+      }
+    } catch (error) {
+      toast.error(`⚠️ Failed to generate alloy: ${error.message}`);
+    } finally {
       setLoading(false);
-    }, 5000);
+    }
   };
 
   return (
@@ -149,15 +152,15 @@ const AlloyGenerator = () => {
                   <input
                     type="number"
                     placeholder={`Min (${propertyConstraints[filter.value].unit})`}
-                    value={propertyRanges[filter.value]?.min || ''}
-                    onChange={(e) => handleRangeChange(filter.value, 'min', e.target.value)}
+                    value={propertyRanges[filter.value]?.min || ""}
+                    onChange={(e) => handleRangeChange(filter.value, "min", e.target.value)}
                     className="w-1/2 p-3 rounded-lg border border-gray-300 text-gray-900"
                   />
                   <input
                     type="number"
                     placeholder={`Max (${propertyConstraints[filter.value].unit})`}
-                    value={propertyRanges[filter.value]?.max || ''}
-                    onChange={(e) => handleRangeChange(filter.value, 'max', e.target.value)}
+                    value={propertyRanges[filter.value]?.max || ""}
+                    onChange={(e) => handleRangeChange(filter.value, "max", e.target.value)}
                     className="w-1/2 p-3 rounded-lg border border-gray-300 text-gray-900"
                   />
                 </div>
@@ -167,90 +170,15 @@ const AlloyGenerator = () => {
               type="submit"
               className="w-full py-3 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg font-semibold text-white hover:opacity-90 transform hover:scale-105 transition-transform"
             >
-              {loading ? 'Generating...' : 'Generate Alloy'}
+              {loading ? "Generating..." : "Generate Alloy"}
             </button>
           </form>
           {result && (
-            <div className="mt-8 shadow-lg p-8 rounded-2xl space-y-8">
-              <h2 className="text-3xl font-bold text-center text-gray-800">
-                🔍 Generated Alloy Result
-              </h2>
-
-              <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
-                {/* Left Section - Composition & Properties */}
-                <div className="md:w-3/4 space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Composition */}
-                    <div>
-                      <h4 className="text-xl font-bold text-black mb-2">🧪 Composition</h4>
-                      <ul className="space-y-2 list-disc list-inside">
-                        {Object.entries(result.composition).map(([element, percentage]) => (
-                          <li key={element} className="text-lg text-gray-700 leading-relaxed">
-                            <span className="font-semibold text-slate-900">{element}:</span> {percentage}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Achieved Properties */}
-                    <div>
-                      <h4 className="text-xl font-bold text-black mb-2">📊 Achieved Properties</h4>
-                      <ul className="space-y-2 list-disc list-inside">
-                        {Object.entries(result.achieved_properties).map(([property, value]) => (
-                          <li key={property} className="text-lg text-gray-700 leading-relaxed">
-                            <span className="font-semibold text-gray-900">
-                              {property.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}:
-                            </span> {value}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Explanation */}
-                  <div>
-                    <h4 className="text-xl font-bold text-black mb-2">📝 Explanation</h4>
-                    <ol className="space-y-2 list-decimal list-inside">
-                      {Object.entries(result.explanations).map(([metal, explanation]) => (
-                        <li key={metal} className="text-lg text-gray-700 leading-relaxed">
-                          <span className="font-semibold text-gray-900">{metal}:</span> {explanation}
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-
-
-                {/* Right Section - Similarity Score */}
-                <div className="flex relative flex-col right-8 top-16 items-center justify-center">
-                  <p className="text-xl text-black font-bold mb-3">Similarity Score</p>
-                  <div
-                    className={`w-32 h-32 rounded-full flex items-center justify-center text-3xl font-extrabold text-white shadow-lg 
-            ${result.similarity_score > 75 ? 'bg-green-500'
-                        : result.similarity_score > 50 ? 'bg-yellow-400'
-                          : 'bg-red-500'}`}
-                  >
-                    {result.similarity_score}%
-                  </div>
-                  <p className="text-sm text-gray-600 mt-2">
-                    {result.similarity_score > 75
-                      ? "Excellent Match ✅"
-                      : result.similarity_score > 50
-                        ? "Moderate Match ⚠️"
-                        : "Low Match ❌"}
-                  </p>
-                </div>
-              </div>
-
-              {/* Download Button */}
-              <div className="flex justify-center">
-                <button className="py-3 px-6 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:scale-105 transition-transform">
-                  ⬇️ Download Report
-                </button>
-              </div>
+            <div className="mt-8 shadow-lg p-8 rounded-2xl">
+              <h2 className="text-3xl font-bold text-center text-gray-800">🔍 Generated Alloy Result</h2>
+              <pre className="text-gray-700 bg-gray-100 p-4 rounded-lg">{JSON.stringify(result, null, 2)}</pre>
             </div>
           )}
-
         </div>
       </div>
       <Footer />
